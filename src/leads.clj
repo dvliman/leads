@@ -47,6 +47,7 @@
         entries (->> (slurp source-file)
                      json/read-str
                      walk/keywordize-keys
+                     (filter (comp :data :Region_Name__c #(= % "Los Angeles")))
                      (map #(merge (-> % :data    (select-keys opportunity-fields))
                                   (-> % :vehicle (select-keys vehicle-fields)))))
 
@@ -62,4 +63,4 @@
       (csv/write-csv writer (to-csv losts)))))
 
 
-#_(process "june-14" "2022-06-14")
+#_(process "june-15" "2022-06-15")
